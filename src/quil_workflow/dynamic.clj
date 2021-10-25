@@ -21,24 +21,29 @@
    :nord15 [180 142 173]
    ))
 
-(def chosen-color (rand-nth (vals nord-pallete)))
-
 (defn setup []
   (let [background-color (rand-nth (vals nord-pallete))]
   (q/smooth)
   (q/frame-rate 1)
-  (q/background (q/color (nth background-color 0)
-                         (nth background-color 1)
-                         (nth background-color 2)))))
+  (q/background (apply q/color background-color))))
+
+(defn draw-circle []
+    (let [color1 (rand-nth (vals nord-pallete))
+          color2 (rand-nth (vals nord-pallete))
+          diam   (rand-int 100)
+          x      (rand-int (q/width))
+          y      (rand-int (q/height))]
+      (q/stroke (apply q/color color1))
+      (q/stroke-weight (rand-int 10))
+      (q/fill (apply q/color color2))
+      (q/ellipse x y diam diam)))
 
 (defn draw []
-  (let [color1 (rand-nth (vals nord-pallete))
-        color2 (rand-nth (vals nord-pallete))]
-    (q/stroke (q/color(nth color1 0) (nth color1 1) (nth color1 2)))
-    (q/stroke-weight (q/random 10))
-    (q/fill (q/color (nth color2 0) (nth color2 1) (nth color2 2))))
-
-  (let [diam (q/random 100)
-        x    (q/random (q/width))
-        y    (q/random (q/height))]
-    (q/ellipse x y diam diam)))
+  (loop [iteration 1]
+    (println(str "Iteration " iteration))
+    (draw-circle)
+    (if (>= iteration 300)
+      (do (q/save "box.png")
+          (q/exit)
+          (println "Goodbye"))
+      (recur (inc iteration)))))

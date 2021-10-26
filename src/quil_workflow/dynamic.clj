@@ -42,10 +42,23 @@
       (q/fill (apply q/color color2))
       (q/ellipse x y diam diam)))
 
+(defn draw-triangle []
+    (let [color1 (rand-nth (vals nord-pallete))
+          color2 (rand-nth (vals nord-pallete))
+          diam   (rand-int 100)
+          x      (rand-int (q/width))
+          y      (rand-int (q/height))]
+      (q/stroke (apply q/color color1))
+      (q/stroke-weight (rand-int 10))
+      (q/fill (apply q/color color2))
+      (q/triangle (- x (/ diam 2)) (- y (/ diam 2))
+                  x (+ y (/ diam 2))
+                  (+ x (/ diam 2)) (- y (/ diam 2)))))
+
 (defn draw []
   (loop [iteration 1]
     (println(str "Iteration " iteration))
-    (draw-circle)
+    (draw-triangle)
     (if (>= iteration 300)
       (do (q/save "box.png")
           (q/exit)

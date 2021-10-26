@@ -1,3 +1,3 @@
-# Introduction to quil-workflow
+# Introduction to quilart
 
 TODO: write [great documentation](http://jacobian.org/writing/what-to-write/)

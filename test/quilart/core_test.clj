@@ -1,6 +1,6 @@
-(ns quil-workflow.core-test
+(ns quilart.core-test
   (:require [clojure.test :refer :all]
-            [quil-workflow.core :refer :all]))
+            [quilart.core :refer :all]))
 
 (deftest a-test
   (testing "FIXME, I fail."

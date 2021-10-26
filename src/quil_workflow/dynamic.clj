@@ -1,5 +1,9 @@
 (ns quil-workflow.dynamic
-  (:require [quil.core :as q]))
+  (:require [quil.core :as q])
+  (:require [random-seed.core :refer :all])
+  (:refer-clojure :exclude [rand rand-int rand-nth shuffle]))
+
+(set-random-seed! 10)
 
 (def nord-pallete
   (hash-map

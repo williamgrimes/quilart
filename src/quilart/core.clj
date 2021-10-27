@@ -8,7 +8,6 @@
 
 ;TODO output file as CLI
 ;TODO use svg instead of png
-;FIXME fix background color seed
 
 (defn draw-circle []
     (let [color1 (rand-nth (vals c/nord-palette))
@@ -38,6 +37,12 @@
       (println (str " triangle \tx: " x "\ty " y "\tcolor1: " color1
                     "\tcolor2: " color2 "\tdiam: " diam))))
 
+(defn setup []
+  (q/smooth)
+  ; hack as first rand-nth call is always the same
+  (rand-nth (vals c/nord-palette))
+  (q/background (apply q/color (rand-nth (vals c/nord-palette)))))
+
 (defn draw [count]
   (loop [iteration 1]
     (print (str "Iteration: " iteration "\t"))
@@ -65,7 +70,7 @@
       (println summary)
       (do (set-random-seed! (:seed options))
           (q/defsketch sketch
-            :bgcolor (rand-nth (vals nord-pallete))
+            :setup setup
             :draw (partial draw (:count options))
             :size [(:width options) (:height options)])))))
 

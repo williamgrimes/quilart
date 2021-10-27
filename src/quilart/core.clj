@@ -1,16 +1,14 @@
 (ns quilart.core
-  (:gen-class)
   (:require [quilart.color :as c])
   (:require [quil.core :as q])
   (:require [clojure.tools.cli :refer [parse-opts]])
   (:require [random-seed.core :refer :all])
-  (:refer-clojure :exclude [rand rand-int rand-nth shuffle]))
+  (:refer-clojure :exclude [rand rand-int rand-nth shuffle])
+  (:gen-class))
 
-;TODO rename project
 ;TODO output file as CLI
 ;TODO use svg instead of png
 ;FIXME fix background color seed
-
 
 (defn draw-circle []
     (let [color1 (rand-nth (vals c/nord-palette))
@@ -49,15 +47,16 @@
           (q/exit))
       (recur (inc iteration)))))
 
-(def cli-options [[nil "--help" "Print this help" :default false]
-                  ["-w" "--width WIDTH" "Image width." :default 1920
-                   :parse-fn #(Integer/parseInt %)]
-                  ["-h" "--height HEIGHT" "Image height" :default 1080
-                   :parse-fn #(Integer/parseInt %)]
-                  ["-n" "--count COUNT" "Number of iters." :default 200
-                   :parse-fn #(Integer/parseInt %)]
-                  ["-s" "--seed SEED" "Random seed value" :default 2
-                   :parse-fn #(Integer/parseInt %)]])
+(def cli-options
+  [[nil "--help" "Print this help" :default false]
+   ["-w" "--width WIDTH" "Image width." :default 1920
+    :parse-fn #(Integer/parseInt %)]
+   ["-h" "--height HEIGHT" "Image height" :default 1080
+    :parse-fn #(Integer/parseInt %)]
+   ["-n" "--count COUNT" "Number of iters." :default 300
+    :parse-fn #(Integer/parseInt %)]
+   ["-s" "--seed SEED" "Random seed value" :default 2
+    :parse-fn #(Integer/parseInt %)]])
 
 (defn -main [& args]
   (let [{:keys [options arguments summary errors]}
